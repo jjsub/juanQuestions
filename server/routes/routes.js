@@ -7,7 +7,8 @@ var morgan         = require('morgan'),
     RedisStore     = require('connect-redis')(session),
     debug          = require('../lib/debug'),
     security       = require('../lib/security'),
-    users          = require('../controllers/users');
+    users          = require('../controllers/users'),
+    questions      = require('../controllers/questions');
 
 module.exports = function(app, express){
   app.use(morgan('dev'));
@@ -19,6 +20,7 @@ module.exports = function(app, express){
 
   app.post('/register', users.register);
   app.post('/login', users.login);
+  app.post('/questions', questions.getQuestions);
 
   app.use(security.authenticate);
   app.use(debug.info);
